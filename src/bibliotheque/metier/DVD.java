@@ -1,39 +1,38 @@
 package bibliotheque.metier;
 
 import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import static bibliotheque.metier.TypeOuvrage.DVD;
 
 public class DVD extends Ouvrage{
-    private Long code;
-    private LocalTime dureeTotale;
-    private byte nbreBonus;
-    private List<String> autresLangues = new ArrayList<>();
-    private List<String> sousTitres = new ArrayList<>();
 
-    public DVD(String titre, String langue, String genre, byte ageMin, LocalDate dateParution, TypeOuvrage typeOuvrage, double prixLocation, Long code, LocalTime dureeTotale, byte nbreBonus, List<String> autresLangues, List<String> sousTitres) {
-        super(titre, langue, genre, ageMin, dateParution, typeOuvrage, prixLocation);
-        this.code = code;
-        this.dureeTotale = dureeTotale;
-        this.nbreBonus = nbreBonus;
-        this.autresLangues = autresLangues;
-        this.sousTitres = sousTitres;
+    private long code;
+    private String dureeTotale;
+    private byte nbreBonus;
+    private List<String> autresLangues=new ArrayList<>();
+    private List<String> sousTitres=new ArrayList<>();
+    public DVD(String titre, int ageMin, LocalDate dateParution, double prixLocation, String langue, String genre, long code, String dureeTotale, byte nbreBonus) {
+        super(titre, ageMin, dateParution, DVD, prixLocation, langue, genre);
+        this.code=code;
+        this.dureeTotale=dureeTotale;
+        this.nbreBonus=nbreBonus;
     }
 
-    public Long getCode() {
+    public long getCode() {
         return code;
     }
 
-    public void setCode(Long code) {
+    public void setCode(long code) {
         this.code = code;
     }
 
-    public LocalTime getDureeTotale() {
+    public String getDureeTotale() {
         return dureeTotale;
     }
 
-    public void setDureeTotale(LocalTime dureeTotale) {
+    public void setDureeTotale(String dureeTotale) {
         this.dureeTotale = dureeTotale;
     }
 
@@ -59,5 +58,34 @@ public class DVD extends Ouvrage{
 
     public void setSousTitres(List<String> sousTitres) {
         this.sousTitres = sousTitres;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DVD dvd = (DVD) o;
+        return code == dvd.code;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(code);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString()+"DVD{" +
+                "code=" + code +
+                ", dureeTotale='" + dureeTotale + '\'' +
+                ", nbreBonus=" + nbreBonus +
+                ", autresLangues=" + autresLangues +
+                ", sousTitres=" + sousTitres +
+                "} " + super.toString();
+    }
+    @Override
+    public double amendeRetard(int njours) {
+        //TODO amendeRetard DVD
+        return 0;
     }
 }

@@ -1,42 +1,38 @@
 package bibliotheque.metier;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class Exemplaire {
-    private Ouvrage ouvrage;
-    private List<Location> liste_location = new ArrayList<>();
-    private Rayon rayon;
+
     private String matricule;
     private String descriptionEtat;
 
-    public Exemplaire(Ouvrage ouvrage, List<Location> liste_location, Rayon rayon, String matricule, String descriptionEtat) {
-        this.ouvrage = ouvrage;
-        this.liste_location = liste_location;
-        this.rayon = rayon;
+    private Ouvrage ouvrage;
+    private Rayon rayon;
+
+    private List<Location> lloc= new ArrayList<>();
+
+
+    public Exemplaire(String matricule, String descriptionEtat,Ouvrage ouvrage) {
         this.matricule = matricule;
-        this.descriptionEtat = descriptionEtat;
-    }
-
-    public Exemplaire(String matricule, String descriptionEtat, Ouvrage ouvrage) {
-        this.matricule = matricule;
-        this.descriptionEtat = descriptionEtat;
+        this.descriptionEtat=descriptionEtat;
         this.ouvrage = ouvrage;
+        this.ouvrage.getLex().add(this);
     }
 
-    public List<Location> getListe_location() {
-        return liste_location;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Exemplaire that = (Exemplaire) o;
+        return Objects.equals(matricule, that.matricule);
     }
 
-    public void setListe_location(List<Location> liste_location) {
-        this.liste_location = liste_location;
-    }
-
-    public Rayon getRayon() {
-        return rayon;
-    }
-
-    public void setRayon(Rayon rayon) {
-        this.rayon = rayon;
+    @Override
+    public int hashCode() {
+        return Objects.hash(matricule);
     }
 
     public String getMatricule() {
@@ -54,17 +50,78 @@ public class Exemplaire {
     public void setDescriptionEtat(String descriptionEtat) {
         this.descriptionEtat = descriptionEtat;
     }
-    public void modifierEtat(String Etat){}
 
-    public void lecteurActuel(){
+    public Ouvrage getOuvrage() {
+        return ouvrage;
     }
-    public void lecteurs(){}
-    public void envoiMailLecteurActuel(Mail mail){}
+
+    public void setOuvrage(Ouvrage ouvrage) {
+        this.ouvrage = ouvrage;
+    }
+
+    public Rayon getRayon() {
+        return rayon;
+    }
+
+    public void setRayon(Rayon rayon) {
+        if(this.rayon!=null) this.rayon.getLex().remove(this);
+        this.rayon=rayon;
+        this.rayon.getLex().add(this);
+    }
+
+    public List<Location> getLloc() {
+        return lloc;
+    }
+
+    public void setLloc(List<Location> lloc) {
+        this.lloc = lloc;
+    }
+
+    @Override
+    public String toString() {
+        return "Exemplaire{" +
+                "matricule='" + matricule + '\'' +
+                ", descriptionEtat='" + descriptionEtat + '\'' +
+                ", ouvrage=" + ouvrage +
+                ", rayon=" + rayon +
+                '}';
+    }
+
+    public void modifierEtat(String etat){
+        //TODO modifier etat exemplaire
+    }
+
+    public Lecteur lecteurActuel(){
+        //TODO lecteur actuel exemplaire
+        return null;
+    }
+    public List<Lecteur> lecteurs(){
+        //lecteurs exemplaire
+        return null;
+    }
+
+    public void envoiMailLecteurActuel(Mail mail){
+        //TODO envoi mail lecteur exemplaire
+    }
     public void envoiMailLecteurs(Mail mail){
+        //TODO envoi mail lecteurs exemplaire
     }
+
     public boolean enRetard(){
-        return true;
+        //TODO enretard exeplaire
+        return false;
     }
-    public int joursRetard(){return 1;}
-    public boolean enLocation(){return true;}
+
+    public int joursRetard(){
+        //TODO jours retard exemplaire
+        return 0;
+    }
+
+
+    public boolean enLocation(){
+        //TODO en location exemplaires
+        return false;
+    }
+
+
 }

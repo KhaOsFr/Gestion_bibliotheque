@@ -5,36 +5,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Ouvrage {
-    protected List<Auteur> liste_auteurs = new ArrayList<>();
-    protected  List<Exemplaire> liste_exemplaires = new ArrayList<>();
-    protected String titre, langue, genre;
-    protected byte ageMin;
+    protected String titre;
+    protected int ageMin;
     protected LocalDate dateParution;
-    protected TypeOuvrage typeOuvrage;
+    protected TypeOuvrage to;
     protected double prixLocation;
+    protected String langue;
+    protected String genre;
 
-    public Ouvrage(String titre, String langue, String genre, byte ageMin, LocalDate dateParution, TypeOuvrage typeOuvrage, double prixLocation) {
+    protected List<Auteur> lauteurs=new ArrayList<>();
+    protected List<Exemplaire> lex = new ArrayList<>();
+
+
+    public Ouvrage(String titre, int ageMin, LocalDate dateParution, TypeOuvrage to, double prixLocation, String langue, String genre) {
         this.titre = titre;
-        this.langue = langue;
-        this.genre = genre;
         this.ageMin = ageMin;
         this.dateParution = dateParution;
-        this.typeOuvrage = typeOuvrage;
+        this.to = to;
         this.prixLocation = prixLocation;
-    }
-
-    public void listerExemplaires() {
-    }
-
-    public void listerExemplaires(boolean enLocation) {
-    }
-
-    public List<Auteur> getListe_auteurs() {
-        return liste_auteurs;
-    }
-
-    public void setListe_auteurs(List<Auteur> liste_auteurs) {
-        this.liste_auteurs = liste_auteurs;
+        this.langue = langue;
+        this.genre = genre;
     }
 
     public String getTitre() {
@@ -43,6 +33,38 @@ public abstract class Ouvrage {
 
     public void setTitre(String titre) {
         this.titre = titre;
+    }
+
+    public int getAgeMin() {
+        return ageMin;
+    }
+
+    public void setAgeMin(int ageMin) {
+        this.ageMin = ageMin;
+    }
+
+    public LocalDate getDateParution() {
+        return dateParution;
+    }
+
+    public void setDateParution(LocalDate dateParution) {
+        this.dateParution = dateParution;
+    }
+
+    public TypeOuvrage getTo() {
+        return to;
+    }
+
+    public void setTo(TypeOuvrage to) {
+        this.to = to;
+    }
+
+    public double getPrixLocation() {
+        return prixLocation;
+    }
+
+    public void setPrixLocation(double prixLocation) {
+        this.prixLocation = prixLocation;
     }
 
     public String getLangue() {
@@ -61,35 +83,60 @@ public abstract class Ouvrage {
         this.genre = genre;
     }
 
-    public byte getAgeMin() {
-        return ageMin;
+    public List<Auteur> getLauteurs() {
+        return lauteurs;
     }
 
-    public void setAgeMin(byte ageMin) {
-        this.ageMin = ageMin;
+    public void setLauteurs(List<Auteur> lauteurs) {
+        this.lauteurs = lauteurs;
     }
 
-    public LocalDate getDateParution() {
-        return dateParution;
+    public List<Exemplaire> getLex() {
+        return lex;
     }
 
-    public void setDateParution(LocalDate dateParution) {
-        this.dateParution = dateParution;
+    public void setLex(List<Exemplaire> lex) {
+        this.lex = lex;
     }
 
-    public TypeOuvrage getTypeOuvrage() {
-        return typeOuvrage;
+    @Override
+    public String toString() {
+        return "Ouvrage{" +
+                "titre='" + titre + '\'' +
+                ", ageMin=" + ageMin +
+                ", dateParution=" + dateParution +
+                ", to=" + to +
+                ", prixLocation=" + prixLocation +
+                ", langue='" + langue + '\'' +
+                ", genre='" + genre + '\'' +
+                '}';
+    }
+    public abstract double amendeRetard(int njours);
+    public void addAuteur(Auteur a ){
+        lauteurs.add(a);
+        a.getLouvrage().add(this);
     }
 
-    public void setTypeOuvrage(TypeOuvrage typeOuvrage) {
-        this.typeOuvrage = typeOuvrage;
+    public void remove(Auteur a){
+        lauteurs.remove(a);
+        a.getLouvrage().remove(this);
+    }
+    public void addExemplaire(Exemplaire e){
+        lex.add(e);
+        e.setOuvrage(this);
     }
 
-    public double getPrixLocation() {
-        return prixLocation;
+    public void remove(Exemplaire e){
+        lex.remove(e);
+        e.setOuvrage(null);
+    }
+    public List<Exemplaire>listerExemplaires(){
+        //TODO lister exemplaires ouvrage
+        return null;
     }
 
-    public void setPrixLocation(double prixLocation) {
-        this.prixLocation = prixLocation;
+    public List<Exemplaire>listerExemplaires(boolean enLocation){
+        //TODO lister exemplaires ouvrage en location
+        return null;
     }
 }

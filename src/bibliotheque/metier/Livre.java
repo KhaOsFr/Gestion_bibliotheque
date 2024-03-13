@@ -1,18 +1,24 @@
 package bibliotheque.metier;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
-public class Livre extends Ouvrage {
-    private String isbn, resume;
-    private int nombrePages;
-    private TypeLivre typeLivre;
+import static bibliotheque.metier.TypeOuvrage.LIVRE;
 
-    public Livre(String titre, byte ageMin, LocalDate dateParution, TypeOuvrage typeOuvrage, double prixLocation, String langue, String genre, String isbn, int nombrePages, TypeLivre typeLivre, String resume) {
-        super(titre, langue, genre, ageMin, dateParution, typeOuvrage, prixLocation);
-        this.isbn = isbn;
-        this.resume = resume;
-        this.nombrePages = nombrePages;
-        this.typeLivre = typeLivre;
+public class Livre extends Ouvrage{
+    private String isbn;
+    private int nbrePages;
+    private TypeLivre tl;
+    private String resume;
+
+
+
+    public Livre(String titre, int ageMin, LocalDate dateParution, double prixLocation, String langue, String genre,String isbn,int nbrePages,TypeLivre tl,String resume) {
+        super(titre, ageMin, dateParution,LIVRE, prixLocation, langue, genre);
+        this.isbn=isbn;
+        this.nbrePages=nbrePages;
+        this.tl=tl;
+        this.resume=resume;
     }
 
     public String getIsbn() {
@@ -23,6 +29,22 @@ public class Livre extends Ouvrage {
         this.isbn = isbn;
     }
 
+    public int getNbrePages() {
+        return nbrePages;
+    }
+
+    public void setNbrePages(int nbrePages) {
+        this.nbrePages = nbrePages;
+    }
+
+    public TypeLivre getTl() {
+        return tl;
+    }
+
+    public void setTl(TypeLivre tl) {
+        this.tl = tl;
+    }
+
     public String getResume() {
         return resume;
     }
@@ -31,19 +53,31 @@ public class Livre extends Ouvrage {
         this.resume = resume;
     }
 
-    public int getNombrePages() {
-        return nombrePages;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Livre livre = (Livre) o;
+        return Objects.equals(isbn, livre.isbn);
     }
 
-    public void setNombrePages(int nombrePages) {
-        this.nombrePages = nombrePages;
+    @Override
+    public int hashCode() {
+        return Objects.hash(isbn);
     }
 
-    public TypeLivre getTypeLivre() {
-        return typeLivre;
+    @Override
+    public String toString() {
+        return super.toString()+ "Livre{" +
+                "isbn='" + isbn + '\'' +
+                ", nbrePages=" + nbrePages +
+                ", tl=" + tl +
+                ", resume='" + resume + '\'' +
+                "} " + super.toString();
     }
-
-    public void setTypeLivre(TypeLivre typeLivre) {
-        this.typeLivre = typeLivre;
+    @Override
+    public double amendeRetard(int njours) {
+        //TODO amendeRetard livre
+        return 0;
     }
 }

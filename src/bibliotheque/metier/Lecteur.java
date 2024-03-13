@@ -1,34 +1,37 @@
 package bibliotheque.metier;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-//Si unique développer une méthode equals et ashcall (jsp si il a dit ça) pour verif qu'il soit unique
 public class Lecteur {
-    private List<Location> liste_location = new ArrayList<>();
-    private Long numLecteur;
-    private String nom;
-    private String prenom;
-    private LocalDate dateNaiss;
-    private String mail;
+    private static int numact=1;
+    private int numlecteur;
+    private  String nom,prenom;
+    private LocalDate dn;
     private String adresse;
+    private String mail;
     private String tel;
 
-    public Lecteur(String nom, String prenom, LocalDate dateNaiss, String mail, String adresse, String tel) {
+    private List<Location> lloc=new ArrayList<>();
+
+    public Lecteur(String nom, String prenom, LocalDate dn, String adresse, String mail, String tel) {
+        this.numlecteur = numact++;
         this.nom = nom;
         this.prenom = prenom;
-        this.dateNaiss = dateNaiss;
-        this.mail = mail;
+        this.dn = dn;
         this.adresse = adresse;
+        this.mail = mail;
         this.tel = tel;
     }
 
-    public Long getNumLecteur() {
-        return numLecteur;
+    public int getNumlecteur() {
+        return numlecteur;
     }
 
-    public void setNumLecteur(Long numLecteur) {
-        this.numLecteur = numLecteur;
+    public void setNumlecteur(int numlecteur) {
+        this.numlecteur = numlecteur;
     }
 
     public String getNom() {
@@ -47,20 +50,12 @@ public class Lecteur {
         this.prenom = prenom;
     }
 
-    public LocalDate getDateNaiss() {
-        return dateNaiss;
+    public LocalDate getDn() {
+        return dn;
     }
 
-    public void setDateNaiss(LocalDate dateNaiss) {
-        this.dateNaiss = dateNaiss;
-    }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setDn(LocalDate dn) {
+        this.dn = dn;
     }
 
     public String getAdresse() {
@@ -71,6 +66,14 @@ public class Lecteur {
         this.adresse = adresse;
     }
 
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+
     public String getTel() {
         return tel;
     }
@@ -79,15 +82,48 @@ public class Lecteur {
         this.tel = tel;
     }
 
-    public List<Location> getListe_location() {
-        return liste_location;
+    public List<Location> getLloc() {
+        return lloc;
     }
 
-    public void setListe_locationLocation(List<Location> liste_location) {
-        this.liste_location = liste_location;
+    public void setLloc(List<Location> lloc) {
+        this.lloc = lloc;
     }
 
-    public void listerExemplaireEnLocation(){}
-    public void listerExemplaireLoues(){}
+    @Override
+    public String toString() {
+        return "Lecteur{" +
+                "numlecteur=" + numlecteur +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", dn=" + dn +
+                ", adresse='" + adresse + '\'' +
+                ", mail='" + mail + '\'' +
+                ", tel='" + tel + '\'' +
+                '}';
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Lecteur lecteur = (Lecteur) o;
+        return numlecteur == lecteur.numlecteur;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numlecteur);
+    }
+
+
+    public List<Exemplaire> listerExemplairesEnLocation(){
+        //TODO lister exemplaires en location lecteur
+        return null;
+    }
+
+    public List<Exemplaire> listerExemplairesEnLoues(){
+        //TODO lister exemplaires loues lecteur
+        return null;
+    }
 }

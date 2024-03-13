@@ -1,23 +1,38 @@
 package bibliotheque.metier;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class Rayon {
-    private List<Exemplaire> liste_exemplaire = new ArrayList<>();
     private String codeRayon;
     private String genre;
+    private List<Exemplaire> lex = new ArrayList<>();
 
     public Rayon(String codeRayon, String genre) {
         this.codeRayon = codeRayon;
         this.genre = genre;
     }
 
-    public List<Exemplaire> getListe_exemplaire() {
-        return liste_exemplaire;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rayon rayon = (Rayon) o;
+        return Objects.equals(codeRayon, rayon.codeRayon);
     }
 
-    public void setListe_exemplaire(List<Exemplaire> liste_exemplaire) {
-        this.liste_exemplaire = liste_exemplaire;
+    @Override
+    public int hashCode() {
+        return Objects.hash(codeRayon);
+    }
+
+    @Override
+    public String toString() {
+        return "Rayon{" +
+                "codeRayon='" + codeRayon + '\'' +
+                ", genre='" + genre + '\'' +
+                '}';
     }
 
     public String getCodeRayon() {
@@ -35,4 +50,14 @@ public class Rayon {
     public void setGenre(String genre) {
         this.genre = genre;
     }
+
+    public List<Exemplaire> getLex() {
+        return lex;
+    }
+
+    public void setLex(List<Exemplaire> lex) {
+        this.lex = lex;
+    }
+
+
 }
