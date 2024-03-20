@@ -28,6 +28,8 @@ public class Exemplaire {
         this.ouvrage.getLex().add(this);
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
