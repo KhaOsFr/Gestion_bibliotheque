@@ -34,9 +34,9 @@ public class Gestion {
         laut.add(a);
 
         DVD d = new DVD("AI", 12, LocalDate.of(2000, 10, 1), 2.50, "anglais", "SF", 4578l, LocalTime.of(2, 0, 0), (byte) 2);
-        d.getAutresLangues().add("français");
-        d.getAutresLangues().add("italien");
-        d.getSousTitres().add("néerlandais");
+        d.getAutresLangues().add("Français");
+        d.getAutresLangues().add("Italien");
+        d.getSousTitres().add("Néerlandais");
         louv.add(d);
 
         a.addOuvrage(d);
@@ -147,7 +147,6 @@ public class Gestion {
         Lecteur lect = new Lecteur(num, nom, prenom, dn, adr, mail, tel);
         llect.add(lect);
         System.out.println("lecteur créé");
-
     }
 
     private void gestRayons() {
@@ -172,7 +171,6 @@ public class Gestion {
         int choix2 = Utilitaire.choixListe(lrayon);
         ex.setRayon(lrayon.get(choix2 - 1));
         System.out.println("exemplaire créé");
-        //TODO attribuer rayon (Lister tous les rayons avec un utilitaire et ajouter le bon)
     }
 
     private void gestOuvrages() {
@@ -197,54 +195,54 @@ public class Gestion {
         int choix = Utilitaire.choixListe(lto);
         switch (choix) {
             case 1:
-                System.out.println("isbn ");
+                System.out.print("Isbn : ");
                 String isbn = sc.next();
-                System.out.println("pages ");
+                System.out.print("Pages : ");
                 int nbrePages = sc.nextInt();
                 sc.skip("\n");
                 TypeLivre[] ttl = TypeLivre.values();
                 List<TypeLivre> ltl = new ArrayList<>(Arrays.asList(ttl));
                 choix = Utilitaire.choixListe(ltl);
                 TypeLivre tl = ttl[choix - 1];
-                System.out.println("résumé du livre :");
+                System.out.print("Résumé du livre : ");
                 String resume = sc.nextLine();
                 o = new Livre(titre, ageMin, dp, ploc, langue, genre, isbn, nbrePages, tl, resume);
                 ;
                 break;
             case 2:
-                System.out.println("code : ");
+                System.out.print("Code : ");
                 long code = sc.nextLong();
-                System.out.println("nombre de pages :");
+                System.out.print("Nombre de pages : ");
                 byte nbrePlages = sc.nextByte();
                 LocalTime dureeTotale = Utilitaire.lecTime();
                 o = new CD(titre, ageMin, dp, ploc, langue, genre, code, nbrePlages, dureeTotale);
                 ;
                 break;
             case 3:
-                System.out.println("code : ");
+                System.out.print("Code : ");
                 code = sc.nextLong();
                 dureeTotale = Utilitaire.lecTime();
                 byte nbreBonus = sc.nextByte();
                 o = new DVD(titre, ageMin, dp, ploc, langue, genre, code, dureeTotale, nbreBonus);
-                System.out.println("autres langues");
+                System.out.println("Autres langues : ");
                 List<String> langues = new ArrayList<>(Arrays.asList("anglais", "français", "italien", "allemand", "fin"));
                 do {
                     choix = Utilitaire.choixListe(langues);
                     if (choix == langues.size()) break;
-                    ((DVD) o).getAutresLangues().add(langues.get(choix - 1));//TODO vérifier unicité ou utiliser set et pas de doublon avec langue d'origine (hashset)
+                    if (!langues.get(choix - 1).equalsIgnoreCase(langue)) {
+                        ((DVD) o).getAutresLangues().add(langues.get(choix - 1));
+                    }
                 } while (true);
                 System.out.println("sous-titres");
                 do {
                     choix = Utilitaire.choixListe(langues);
                     if (choix == langues.size()) break;
-                    ((DVD) o).getSousTitres().add(langues.get(choix - 1));//TODO vérifier unicité ou utiliser set
+                    ((DVD) o).getSousTitres().add(langues.get(choix - 1));
                 } while (true);
-                ;
                 break;
         }
         louv.add(o);
         System.out.println("ouvrage créé");
-        //TODO ajouter 1 auteur à la liste des auteurs
         gestAuteurs();
     }
 
