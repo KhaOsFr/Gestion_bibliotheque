@@ -2,7 +2,9 @@ package bibliotheque.metier;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 public class DVD extends Ouvrage{
 
@@ -89,6 +91,6 @@ public class DVD extends Ouvrage{
                 ", nbreBonus=" + nbreBonus +
                 ", autresLangues=" + autresLangues +
                 ", sousTitres=" + sousTitres +
-                "} " + super.toString();
+                "} " ;
     }
 }

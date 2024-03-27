@@ -7,13 +7,13 @@ import java.util.Objects;
 
 public class Lecteur {
     private int numlecteur;
-    private String nom, prenom;
+    private  String nom,prenom;
     private LocalDate dn;
     private String adresse;
     private String mail;
     private String tel;
 
-    private List<Location> lloc = new ArrayList<>();
+    private List<Location> lloc=new ArrayList<>();
 
     public Lecteur(int numlecteur, String nom, String prenom, LocalDate dn, String adresse, String mail, String tel) {
         this.numlecteur = numlecteur;
@@ -115,18 +115,20 @@ public class Lecteur {
         return Objects.hash(numlecteur);
     }
 
-    public List<Exemplaire> listerExemplairesEnLocation() {
-        for (Location l : lloc) {
-            if(l.getDateRestitution() == null)
-                System.out.println(l);
+    public List<Exemplaire> listerExemplairesEnLocation(){
+        List<Exemplaire> lex = new ArrayList<>();
+        for(Location loc : lloc){
+            if(loc.getDateRestitution()!=null)lex.add(loc.getExemplaire());
         }
-        return null;
+        return lex;
     }
 
-    public List<Exemplaire> listerExemplairesEnLoues() {
-        for (Location l : lloc) {
-            System.out.println(l);
+    public List<Exemplaire> listerExemplairesLoues(){
+        List<Exemplaire> lex = new ArrayList<>();
+        for(Location loc : lloc){
+            lex.add(loc.getExemplaire());
+            //TODO empêcher doublon si exemplaire loué plusieurs fois par même lecteur
         }
-        return null;
+       return lex;
     }
 }
