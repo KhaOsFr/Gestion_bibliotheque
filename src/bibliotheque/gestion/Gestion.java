@@ -125,6 +125,7 @@ public class Gestion {
 
     private void gestLocations() {
         int choix;
+        Collections.sort(lex);
         //TODO ne lister que les exemplaires libres et les trier par matricule
         choix = choixListe(lex);
         if (lex.get(choix).enLocation()) {
