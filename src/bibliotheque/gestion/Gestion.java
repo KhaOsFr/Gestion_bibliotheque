@@ -7,10 +7,7 @@ import bibliotheque.utilitaires.LivreFactoryBeta;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 import static bibliotheque.utilitaires.Utilitaire.choixListe;
 
@@ -119,7 +116,11 @@ public class Gestion {
     }
 
     private void gestRestitution() {
-        //TODO lister exemplaires en location , choisir l'un d'entre eux, enregistrer sa restitution et éventuellement changer état
+        int choix = choixListe(lloc);
+        if (lloc.get(choix - 1).getDateRestitution() == null)
+            lloc.get(choix - 1).setDateRestitution(LocalDate.now());
+        else
+            System.out.println("A été restitué le " + lloc.get(choix - 1).getDateRestitution());
     }
 
     private void gestLocations() {
@@ -186,9 +187,9 @@ public class Gestion {
         Exemplaire ex = new Exemplaire(mat, etat, louv.get(choix - 1));
         lex.add(ex);
         System.out.println("exemplaire créé");
+        Collections.sort(lrayon);
         choix = choixListe(lrayon);
         ex.setRayon(lrayon.get(choix - 1));
-        //TODO attribuer un rayon ==> c'est fait  , nouveauté : les rayons sont triès par ordre de code
     }
 
     private void gestOuvrages() {
@@ -245,13 +246,13 @@ public class Gestion {
                             do{
                                 choix=Utilitaire.choixListe(langues);
                                 if(choix==langues.size())break;
-                                ((DVD)o).getAutresLangues().add(langues.get(choix-1));//TODO vérifier unicité ou utiliser set et pas de doublon avec langue d'origine
+                                ((DVD)o).getAutresLangues().add(langues.get(choix-1));
                             }while(true);
                            System.out.println("sous-titres");
                             do{
                              choix=Utilitaire.choixListe(langues);
                              if(choix==langues.size())break;
-                             ((DVD)o).getSousTitres().add(langues.get(choix-1));//TODO vérifier unicité ou utiliser set
+                             ((DVD)o).getSousTitres().add(langues.get(choix-1));
                              }while(true);
                             ;break;
             }*/
@@ -279,8 +280,21 @@ public class Gestion {
         System.out.println("ouvrage créé");
         choix = choixListe(laut);
         o.addAuteur(laut.get(choix - 1));
-        //TODO attribuer auteurs par boucle, les auteur sont triés par ordre de nom et prénom,
-        // ne pas proposer un auteur déjà présent dans la liste des auteurs de cet ouvrage
+        List<Auteur> temp = new ArrayList<>();
+        int choix2;
+        do {
+            for (Auteur a : laut) {
+                if (!o.getLauteurs().contains(a)) {
+                    temp.add(a);
+                }
+            }
+            Collections.sort(temp);
+            choix2 = choixListe(temp);
+            if (choix2 != 0) {
+                o.addAuteur(temp.get(choix2 - 1));
+                temp.clear();
+            }
+        } while (choix2 != 0);
     }
 
     private void gestAuteurs() {
@@ -295,9 +309,21 @@ public class Gestion {
         System.out.println("écrivain créé");
         int choix = choixListe(louv);
         a.addOuvrage(louv.get(choix - 1));
-        //TODO attribuer ouvrages par boucle
-        // les ouvrages sont triés par ordre de titre
-        // ne pas proposer un ouvrage déjà présent dans la liste des ouvrages de cet auteur
+        List<Ouvrage> temp = new ArrayList<>();
+        int choix2;
+        do {
+            for (Ouvrage o : louv) {
+                if (!a.getLouvrage().contains(o)) {
+                    temp.add(o);
+                }
+            }
+            Collections.sort(temp);
+            choix2 = choixListe(temp);
+            if (choix2 != 0) {
+                a.addOuvrage(temp.get(choix2 - 1));
+                temp.clear();
+            }
+        } while (choix2 != 0);
     }
 
     public static void main(String[] args) {

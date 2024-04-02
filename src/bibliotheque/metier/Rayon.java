@@ -2,7 +2,7 @@ package bibliotheque.metier;
 
 import java.util.*;
 
-public class Rayon {
+public class Rayon implements Comparable<Rayon> {
     private String codeRayon;
     private String genre;
     private Set<Exemplaire> lex = new HashSet<>();
@@ -10,6 +10,11 @@ public class Rayon {
     public Rayon(String codeRayon, String genre) {
         this.codeRayon = codeRayon;
         this.genre = genre;
+    }
+
+    @Override
+    public int compareTo(Rayon r) {
+        return this.codeRayon.compareTo(r.codeRayon);
     }
 
     @Override
@@ -32,15 +37,17 @@ public class Rayon {
                 ", genre='" + genre + '\'' +
                 '}';
     }
-    public void addExemplaire(Exemplaire e){
+
+    public void addExemplaire(Exemplaire e) {
         lex.add(e);
         e.setRayon(this);
     }
 
-    public void remove(Exemplaire e){
+    public void remove(Exemplaire e) {
         lex.remove(e);
         e.setRayon(null);
     }
+
     public String getCodeRayon() {
         return codeRayon;
     }
@@ -65,7 +72,7 @@ public class Rayon {
         this.lex = lex;
     }
 
-    public Set<Exemplaire>listerExemplaires(){
+    public Set<Exemplaire> listerExemplaires() {
         return lex;
     }
 

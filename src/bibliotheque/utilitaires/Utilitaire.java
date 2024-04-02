@@ -11,11 +11,11 @@ public class Utilitaire {
 
        int i =1;
        for(Object o :l) {
-         System.out.println((i++)+"."+o);
+         System.out.println((i++)+". "+o);
        }
        int choix;
         do {
-                System.out.println("choix :");
+                System.out.print("choix : ");
                 choix = sc.nextInt();
                 sc.skip("\n");
             } while(choix <1 || choix > l.size());

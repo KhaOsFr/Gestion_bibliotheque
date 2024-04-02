@@ -5,7 +5,7 @@ import java.util.*;
 import static bibliotheque.metier.TypeOuvrage.LIVRE;
 
 
-public class Auteur {
+public class Auteur implements Comparable<Auteur> {
     private String nom, prenom;
     private String nationalite;
     private Set<Ouvrage> louvrage = new HashSet<>();
@@ -112,5 +112,16 @@ public class Auteur {
             if (o.getGenre().equals(genre)) lot.add(o);
         }
         return lot;
+    }
+
+    @Override
+    public int compareTo(Auteur a) {
+        int comparaisonNom = this.nom.compareTo(a.nom);
+
+        if (comparaisonNom == 0) {
+            return this.prenom.compareTo(a.prenom);
+        }
+
+        return comparaisonNom;
     }
 }
