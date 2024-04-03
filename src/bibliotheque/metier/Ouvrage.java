@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public abstract class Ouvrage implements Comparable<Ouvrage> {
+public abstract class Ouvrage {
     protected String titre;
     protected int ageMin;
     protected LocalDate dateParution;
@@ -15,8 +15,10 @@ public abstract class Ouvrage implements Comparable<Ouvrage> {
     protected String langue;
     protected String genre;
 
-    protected Set<Auteur> lauteurs = new HashSet<>();
+    protected Set<Auteur> lauteurs=new HashSet<>();
+
     protected Set<Exemplaire> lex = new HashSet<>();
+
 
     public Ouvrage(String titre, int ageMin, LocalDate dateParution, TypeOuvrage to, double prixLocation, String langue, String genre) {
         this.titre = titre;
@@ -26,11 +28,6 @@ public abstract class Ouvrage implements Comparable<Ouvrage> {
         this.prixLocation = prixLocation;
         this.langue = langue;
         this.genre = genre;
-    }
-
-    @Override
-    public int compareTo(Ouvrage o) {
-        return this.titre.compareTo(o.titre);
     }
 
     public String getTitre() {
@@ -122,35 +119,32 @@ public abstract class Ouvrage implements Comparable<Ouvrage> {
                 ", genre='" + genre + '\'' +
                 '}';
     }
-
-    public void addAuteur(Auteur a) {
+    public void addAuteur(Auteur a ){
         lauteurs.add(a);
         a.getLouvrage().add(this);
     }
 
-    public void remove(Auteur a) {
+    public void remove(Auteur a){
         lauteurs.remove(a);
         a.getLouvrage().remove(this);
     }
-
-    public void addExemplaire(Exemplaire e) {
+    public void addExemplaire(Exemplaire e){
         lex.add(e);
         e.setOuvrage(this);
     }
 
-    public void remove(Exemplaire e) {
+    public void remove(Exemplaire e){
         lex.remove(e);
         e.setOuvrage(null);
     }
-
-    public Set<Exemplaire> listerExemplaires() {
+    public Set<Exemplaire>listerExemplaires(){
         return lex;
     }
 
-    public List<Exemplaire> listerExemplaires(boolean enLocation) {
+    public List<Exemplaire>listerExemplaires(boolean enLocation){
         List<Exemplaire> lex2 = new ArrayList<>();
-        for (Exemplaire ex : lex) {
-            if (ex.enLocation() == enLocation) lex2.add(ex);
+        for(Exemplaire ex : lex){
+            if(ex.enLocation()==enLocation) lex2.add(ex);
         }
         return lex2;
     }

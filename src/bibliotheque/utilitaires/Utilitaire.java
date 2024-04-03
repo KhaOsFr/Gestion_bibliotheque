@@ -11,14 +11,14 @@ public class Utilitaire {
 
        int i =1;
        for(Object o :l) {
-         System.out.println((i++)+". "+o);
+         System.out.println((i++)+"."+o);
        }
        int choix;
         do {
-                System.out.print("choix : ");
+                System.out.println("choix (0 pour aucun) :");
                 choix = sc.nextInt();
                 sc.skip("\n");
-            } while(choix <1 || choix > l.size());
+            } while(choix <0 || choix > l.size());
         return choix;
     }
 
