@@ -1,24 +1,17 @@
 package bibliotheque.metier;
 
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
+
+import static bibliotheque.gestion.Gestion.LOCATION;
+
 
 public class Exemplaire {
 
     private String matricule;
     private String descriptionEtat;
-
     private Ouvrage ouvrage;
     private Rayon rayon;
-
     private String etat;
-
-
-    private List<Location> lloc= new ArrayList<>();
-
 
     public Exemplaire(String matricule, String descriptionEtat,Ouvrage ouvrage){
         this.matricule = matricule;
@@ -77,14 +70,6 @@ public class Exemplaire {
         this.rayon.getLex().add(this);
     }
 
-    public List<Location> getLloc() {
-        return lloc;
-    }
-
-    public void setLloc(List<Location> lloc) {
-        this.lloc = lloc;
-    }
-
     @Override
     public String toString() {
         return "Exemplaire{" +
@@ -99,16 +84,8 @@ public class Exemplaire {
        setDescriptionEtat(etat);
     }
 
-    public Lecteur lecteurActuel(){
-        if(enLocation()) return lloc.get(lloc.size()-1).getLoueur();
-        return null;
-    }
-    public List<Lecteur> lecteurs(){
-        List<Lecteur> ll = new ArrayList<>();
-        for(Location l : lloc){
-            if(ll.contains(l)) continue; //par la suite utiliser set
-            ll.add(l.getLoueur());
-        }
+    public Lecteur lecteurActuel() {
+        if (enLocation()) return LOCATION.get(this);
         return null;
     }
 
@@ -116,26 +93,14 @@ public class Exemplaire {
         if(lecteurActuel()!=null) System.out.println("envoi de "+mail+ " à "+lecteurActuel().getMail());
         else System.out.println("aucune location en cours");
     }
-    public void envoiMailLecteurs(Mail mail){
-        List<Lecteur>ll=lecteurs();
-        if(ll.isEmpty()){
-            System.out.println("aucun lecteur enregistré");
-        }
-        else{
-            for(Lecteur l: ll){
-                System.out.println("envoi de "+mail+ " à "+l.getMail());
-            }
-        }
+
+    public void envoiMailLecteurs(Mail mail) {
+        if (lecteurActuel() == null) System.out.println("Pas en location");
+        else System.out.println("Mail : " + mail);
     }
 
-
-    public boolean enLocation(){
-        if(lloc.isEmpty()) return false;
-        Location l = lloc.get(lloc.size()-1);//la location en cours est la dernière de la liste
-        if(l.getDateRestitution()==null) return true;
-        return false;
+    public boolean enLocation() {
+        return LOCATION.get(this) != null;
     }
-
-
 
 }

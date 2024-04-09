@@ -72,15 +72,10 @@ public class Gestion {
         Lecteur lec = new Lecteur(1, "Dupont", "Jean", LocalDate.of(2000, 1, 4), "Mons", "jean.dupont@mail.com", "0458774411");
         llect.add(lec);
 
-        Location loc = new Location(LocalDate.of(2023, 2, 1), LocalDate.of(2023, 3, 1), lec, e);
-        lloc.add(loc);
-        loc.setDateRestitution(LocalDate.of(2023, 2, 4));
+        LOCATION.put(e, lec);
 
         lec = new Lecteur(1, "Durant", "Aline", LocalDate.of(1980, 10, 10), "Binche", "aline.durant@mail.com", "045874444");
         llect.add(lec);
-
-        loc = new Location(LocalDate.of(2023, 2, 5), LocalDate.of(2023, 3, 5), lec, e);
-        lloc.add(loc);
     }
 
     private void menu() {
@@ -118,6 +113,14 @@ public class Gestion {
 
     private void gestRestitution() {
         //TODO lister exemplaires en location , choisir l'un d'entre eux, enregistrer sa restitution et éventuellement changer état
+        System.out.println("\nListe des exemplaires en location :");
+        int i = 1;
+        Set<Exemplaire> exemps = LOCATION.keySet();
+        for (Exemplaire ex : exemps) {
+            System.out.println(i++ +". " + ex.getOuvrage());
+        }
+        System.out.println("Choix : ");
+        int choix = sc.nextInt();
     }
 
     private void gestLocations() {
@@ -134,7 +137,7 @@ public class Gestion {
         choix = choixListe(llect);
         if (choix == 0) return;
         Lecteur lec = llect.get(choix - 1);
-        lloc.add(new Location(lec, ex));
+        LOCATION.put(ex, lec);
     }
 
     private void gestLecteurs() {
