@@ -13,6 +13,7 @@ public class Lecteur {
     private String mail;
     private String tel;
 
+
     public Lecteur(int numlecteur, String nom, String prenom, LocalDate dn, String adresse, String mail, String tel) {
         this.numlecteur = numlecteur;
         this.nom = nom;
@@ -79,7 +80,7 @@ public class Lecteur {
         this.tel = tel;
     }
 
-    @Override
+        @Override
     public String toString() {
         return "Lecteur{" +
                 "numlecteur=" + numlecteur +
@@ -104,4 +105,5 @@ public class Lecteur {
     public int hashCode() {
         return Objects.hash(numlecteur);
     }
+
 }

@@ -2,16 +2,18 @@ package bibliotheque.metier;
 
 import java.util.Objects;
 
-import static bibliotheque.gestion.Gestion.LOCATION;
-
+import static bibliotheque.gestion.GestionOld.LOCATIONS;
 
 public class Exemplaire {
 
     private String matricule;
     private String descriptionEtat;
+
     private Ouvrage ouvrage;
     private Rayon rayon;
+
     private String etat;
+
 
     public Exemplaire(String matricule, String descriptionEtat,Ouvrage ouvrage){
         this.matricule = matricule;
@@ -84,8 +86,8 @@ public class Exemplaire {
        setDescriptionEtat(etat);
     }
 
-    public Lecteur lecteurActuel() {
-        if (enLocation()) return LOCATION.get(this);
+    public Lecteur lecteurActuel(){
+        if(enLocation()) return LOCATIONS.get(this);
         return null;
     }
 
@@ -94,13 +96,8 @@ public class Exemplaire {
         else System.out.println("aucune location en cours");
     }
 
-    public void envoiMailLecteurs(Mail mail) {
-        if (lecteurActuel() == null) System.out.println("Pas en location");
-        else System.out.println("Mail : " + mail);
-    }
 
-    public boolean enLocation() {
-        return LOCATION.get(this) != null;
+    public boolean enLocation(){
+        return LOCATIONS.get(this) !=null ;
     }
-
 }
