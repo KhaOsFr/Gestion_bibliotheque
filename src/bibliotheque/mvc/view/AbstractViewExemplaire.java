@@ -5,6 +5,7 @@ import bibliotheque.mvc.observer.Observer;
 
 import java.util.List;
 
+/*
 public abstract class AbstractViewExemplaire implements Observer {
     protected ExemplaireController exemplaireController;
     protected List<Exemplaire> le;
@@ -27,3 +28,4 @@ public abstract class AbstractViewExemplaire implements Observer {
         affList(le);
     }
 }
+*/

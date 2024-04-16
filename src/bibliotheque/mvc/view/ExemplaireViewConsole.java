@@ -12,6 +12,7 @@ import java.util.Scanner;
 import static bibliotheque.utilitaires.Utilitaire.*;
 import static bibliotheque.utilitaires.Utilitaire.affListe;
 
+/*
 public class ExemplaireViewConsole extends AbstractViewExemplaire{
     Scanner sc = new Scanner(System.in);
 
@@ -160,3 +161,4 @@ public class ExemplaireViewConsole extends AbstractViewExemplaire{
         affListe(la);
     }
 }
+*/
