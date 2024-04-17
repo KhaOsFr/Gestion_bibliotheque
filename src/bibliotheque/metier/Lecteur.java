@@ -25,7 +25,6 @@ public class Lecteur {
         this.tel = tel;
     }
 
-
     public Lecteur(int numlecteur, String nom, String prenom, LocalDate dn, String adresse, String mail, String tel) {
         this.numlecteur = numlecteur;
         this.nom = nom;

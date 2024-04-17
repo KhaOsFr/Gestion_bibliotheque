@@ -185,6 +185,7 @@ public class GestionOld {
 
     private void gestOuvrages() {
 
+
         TypeOuvrage[] tto = TypeOuvrage.values();
         List<TypeOuvrage> lto = new ArrayList<>(Arrays.asList(tto));
         int choix = choixListe(lto);
