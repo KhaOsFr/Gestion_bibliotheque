@@ -15,7 +15,7 @@ public class LecteurViewConsole extends AbstractView<Lecteur> {
     @Override
     public void menu() {
         update(controller.getAll());
-        List options = Arrays.asList("ajouter", "retirer", "rechercher","modifier","fin");
+        List options = Arrays.asList("ajouter", "retirer", "rechercher", "modifier", "fin");
         do {
             int ch = choixListe(options);
 
@@ -44,10 +44,10 @@ public class LecteurViewConsole extends AbstractView<Lecteur> {
     }
 
     private void retirer() {
-        int nl = choixElt(la)-1;
+        int nl = choixElt(la) - 1;
         Lecteur l = la.get(nl);
         boolean ok = controller.remove(l);
-        if(ok) affMsg("lecteur effacé");
+        if (ok) affMsg("lecteur effacé");
         else affMsg("lecteur non effacé");
     }
 
@@ -60,14 +60,14 @@ public class LecteurViewConsole extends AbstractView<Lecteur> {
         try {
             System.out.println("numéro de lecteur :");
             int id = lireInt();
-            Lecteur rech = new Lecteur(id,"","",null,"","","");
+            Lecteur rech = new Lecteur(id, "", "", null, "", "", "");
             Lecteur l = controller.search(rech);
-            if(l==null) affMsg("lecteur inconnu");
+            if (l == null) affMsg("lecteur inconnu");
             else {
                 affMsg(l.toString());
-             }
-        }catch(Exception e){
-            System.out.println("erreur : "+e);
+            }
+        } catch (Exception e) {
+            System.out.println("erreur : " + e);
         }
 
     }
@@ -75,27 +75,30 @@ public class LecteurViewConsole extends AbstractView<Lecteur> {
 
     public void modifier() {
         int choix = choixElt(la);
-        Lecteur l  = la.get(choix-1);
-         do {
+        Lecteur l = la.get(choix - 1);
+        do {
             try {
                 String nom = modifyIfNotBlank("nom", l.getNom());
                 String prenom = modifyIfNotBlank("prénom", l.getPrenom());
                 String mail = modifyIfNotBlank("nationalité", l.getMail());
+                String adresse = modifyIfNotBlank("adresse", l.getAdresse());
+                String tel = modifyIfNotBlank("tel", l.getTel());
                 l.setNom(nom);
                 l.setPrenom(prenom);
                 l.setMail(mail);
-                //TODO gérer autres valeurs
+                l.setAdresse(adresse);
+                l.setTel(tel);
                 break;
             } catch (Exception e) {
                 System.out.println("erreur :" + e);
             }
-        }while(true);
+        } while (true);
         controller.update(l);
-   }
+    }
 
 
     public void ajouter() {
-       Lecteur l;
+        Lecteur l;
         do {
             try {
                 System.out.println("nom ");
@@ -110,14 +113,14 @@ public class LecteurViewConsole extends AbstractView<Lecteur> {
                 String adr = sc.nextLine();
                 System.out.println("tel :");
                 String tel = sc.nextLine();
-                l = new Lecteur(nom,prenom,dn,adr,mail,tel);
+                l = new Lecteur(nom, prenom, dn, adr, mail, tel);
                 break;
             } catch (Exception e) {
-                System.out.println("une erreur est survenue : "+e.getMessage());
+                System.out.println("une erreur est survenue : " + e.getMessage());
             }
-        }while(true);
-        l=controller.add(l);
-        affMsg("création du lecteur : "+l);
+        } while (true);
+        l = controller.add(l);
+        affMsg("création du lecteur : " + l);
     }
 
 }
