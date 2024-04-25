@@ -85,7 +85,6 @@ public class OuvrageViewConsole extends AbstractView<Ouvrage> {
             affMsg("ouvrage inconnu");
         }
         //TODO réalisé
-
     }
 
 
